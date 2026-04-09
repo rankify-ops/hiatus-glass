@@ -460,6 +460,114 @@
     .star { color: var(--gold); font-size: 0.75rem; }
     .rating-text { font-size: 0.7rem; color: var(--text-dim); margin-left: 4px; }
 
+    /* ===== GRID GLOW — energy flows from Discover dot into grid borders ===== */
+    .product-grid-wrap {
+      position: relative;
+    }
+
+    .grid-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* Base grid lines — very faint */
+    .glow-h, .glow-v {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .glow-h {
+      left: 0;
+      right: 0;
+      height: 1px;
+    }
+
+    .glow-v {
+      top: 0;
+      bottom: 0;
+      width: 1px;
+    }
+
+    /* Traveling light on horizontal lines — splits from center */
+    .glow-h::before,
+    .glow-h::after {
+      content: '';
+      position: absolute;
+      width: 80px;
+      height: 3px;
+      top: -1px;
+      border-radius: 3px;
+      background: radial-gradient(ellipse, rgba(255, 255, 255, 0.7), transparent);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.4), 0 0 24px rgba(255, 255, 255, 0.15);
+    }
+
+    .glow-h::before {
+      left: 50%;
+      animation: glowRight 4s ease-in-out infinite;
+    }
+
+    .glow-h::after {
+      right: 50%;
+      animation: glowLeft 4s ease-in-out infinite;
+    }
+
+    /* Stagger middle and bottom rows */
+    .glow-h:nth-child(2)::before,
+    .glow-h:nth-child(2)::after {
+      animation-delay: 1.3s;
+    }
+    .glow-h:nth-child(3)::before,
+    .glow-h:nth-child(3)::after {
+      animation-delay: 2.6s;
+    }
+
+    /* Traveling light on vertical lines — top to bottom */
+    .glow-v::before {
+      content: '';
+      position: absolute;
+      height: 80px;
+      width: 3px;
+      left: -1px;
+      border-radius: 3px;
+      background: radial-gradient(ellipse, rgba(255, 255, 255, 0.7), transparent);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.4), 0 0 24px rgba(255, 255, 255, 0.15);
+      animation: glowDown 4s ease-in-out infinite;
+      animation-delay: 0.6s;
+    }
+
+    /* Stagger the vertical lines outward from center */
+    .glow-v:nth-child(6)::before { animation-delay: 0.6s; }  /* center 50% */
+    .glow-v:nth-child(5)::before,
+    .glow-v:nth-child(7)::before { animation-delay: 0.9s; }  /* 25% + 75% */
+    .glow-v:nth-child(4)::before,
+    .glow-v:nth-child(8)::before { animation-delay: 1.2s; }  /* edges */
+
+    @keyframes glowRight {
+      0% { left: 50%; opacity: 0; }
+      8% { opacity: 1; }
+      45% { opacity: 1; }
+      50% { left: calc(100% + 80px); opacity: 0; }
+      100% { left: calc(100% + 80px); opacity: 0; }
+    }
+
+    @keyframes glowLeft {
+      0% { right: 50%; opacity: 0; }
+      8% { opacity: 1; }
+      45% { opacity: 1; }
+      50% { right: calc(100% + 80px); opacity: 0; }
+      100% { right: calc(100% + 80px); opacity: 0; }
+    }
+
+    @keyframes glowDown {
+      0% { top: -80px; opacity: 0; }
+      8% { opacity: 1; }
+      45% { opacity: 1; }
+      50% { top: calc(100% + 80px); opacity: 0; }
+      100% { top: calc(100% + 80px); opacity: 0; }
+    }
+
     /* ===== FEATURED BANNER ===== */
     .featured-banner {
       display: grid;
@@ -713,129 +821,136 @@
       </div>
     </section>
 
-    <!-- Products -->
+    <!-- Products — single 4x2 grid -->
     <section class="section section--products" id="products">
-      <div class="product-grid reveal">
-        <div class="product-card">
-          <div class="product-card__image">
-            <img src="images/unearth-stacker-ring.webp" alt="Unearth Stacker Ring Set">
-            <span class="product-card__badge product-card__badge--accent">Best Seller</span>
+      <div class="product-grid-wrap reveal">
+        <div class="product-grid">
+          <div class="product-card">
+            <div class="product-card__image">
+              <img src="images/unearth-stacker-ring.webp" alt="Unearth Stacker Ring Set">
+              <span class="product-card__badge product-card__badge--accent">Best Seller</span>
+            </div>
+            <div class="product-card__info">
+              <div class="product-card__title">Unearth Stacker Ring Set (Silver)</div>
+              <div class="product-card__price">$179.00</div>
+              <div class="product-card__type">Ring</div>
+              <div class="product-card__stars">
+                <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+                <span class="rating-text">(5.0)</span>
+              </div>
+            </div>
           </div>
-          <div class="product-card__info">
-            <div class="product-card__title">Unearth Stacker Ring Set (Silver)</div>
-            <div class="product-card__price">$179.00</div>
-            <div class="product-card__type">Ring</div>
-            <div class="product-card__stars">
-              <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
-              <span class="rating-text">(5.0)</span>
+          <div class="product-card">
+            <div class="product-card__image">
+              <img src="images/unearth-signet-ring.webp" alt="Unearth Signet Ring">
+            </div>
+            <div class="product-card__info">
+              <div class="product-card__title">Unearth Signet Ring (Silver)</div>
+              <div class="product-card__price">$179.00</div>
+              <div class="product-card__type">Ring</div>
+              <div class="product-card__stars">
+                <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+                <span class="rating-text">(5.0)</span>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image">
+              <img src="images/unearth-ring.webp" alt="Unearth Ring">
+            </div>
+            <div class="product-card__info">
+              <div class="product-card__title">Unearth Ring (Silver)</div>
+              <div class="product-card__price">$179.00</div>
+              <div class="product-card__type">Ring</div>
+              <div class="product-card__stars">
+                <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+                <span class="rating-text">(5.0)</span>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image">
+              <img src="images/creators-ring.webp" alt="Creators Ring">
+              <span class="product-card__badge product-card__badge--accent">New</span>
+            </div>
+            <div class="product-card__info">
+              <div class="product-card__title">Creators Ring (Silver)</div>
+              <div class="product-card__price">$179.00</div>
+              <div class="product-card__type">Ring</div>
+              <div class="product-card__stars">
+                <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+                <span class="rating-text">(5.0)</span>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image">
+              <img src="images/cuban-link-bracelet.png" alt="Cuban Link Bracelet">
+            </div>
+            <div class="product-card__info">
+              <div class="product-card__title">Cuban Link Bracelet (Silver)</div>
+              <div class="product-card__price">$299.00</div>
+              <div class="product-card__type">Bracelet</div>
+              <div class="product-card__stars">
+                <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+                <span class="rating-text">(5.0)</span>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image">
+              <img src="images/unearth-cuff.webp" alt="Unearth Cuff">
+            </div>
+            <div class="product-card__info">
+              <div class="product-card__title">Unearth Cuff (Silver)</div>
+              <div class="product-card__price">$299.00</div>
+              <div class="product-card__type">Bracelet</div>
+              <div class="product-card__stars">
+                <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+                <span class="rating-text">(5.0)</span>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image">
+              <img src="images/sun-worshipper-pendant.png" alt="Sun Worshipper Pendant">
+            </div>
+            <div class="product-card__info">
+              <div class="product-card__title">Sun Worshipper Pendant (Silver)</div>
+              <div class="product-card__price">$149.00</div>
+              <div class="product-card__type">Necklace</div>
+              <div class="product-card__stars">
+                <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+                <span class="rating-text">(5.0)</span>
+              </div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image">
+              <img src="images/paradox-pearls.png" alt="Paradox Pearls">
+              <span class="product-card__badge product-card__badge--accent">New</span>
+            </div>
+            <div class="product-card__info">
+              <div class="product-card__title">Paradox Pearls (Silver)</div>
+              <div class="product-card__price">$179.00</div>
+              <div class="product-card__type">Necklace</div>
+              <div class="product-card__stars">
+                <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+                <span class="rating-text">(5.0)</span>
+              </div>
             </div>
           </div>
         </div>
-        <div class="product-card">
-          <div class="product-card__image">
-            <img src="images/unearth-signet-ring.webp" alt="Unearth Signet Ring">
-          </div>
-          <div class="product-card__info">
-            <div class="product-card__title">Unearth Signet Ring (Silver)</div>
-            <div class="product-card__price">$179.00</div>
-            <div class="product-card__type">Ring</div>
-            <div class="product-card__stars">
-              <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
-              <span class="rating-text">(5.0)</span>
-            </div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-card__image">
-            <img src="images/unearth-ring.webp" alt="Unearth Ring">
-          </div>
-          <div class="product-card__info">
-            <div class="product-card__title">Unearth Ring (Silver)</div>
-            <div class="product-card__price">$179.00</div>
-            <div class="product-card__type">Ring</div>
-            <div class="product-card__stars">
-              <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
-              <span class="rating-text">(5.0)</span>
-            </div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-card__image">
-            <img src="images/creators-ring.webp" alt="Creators Ring">
-            <span class="product-card__badge product-card__badge--accent">New</span>
-          </div>
-          <div class="product-card__info">
-            <div class="product-card__title">Creators Ring (Silver)</div>
-            <div class="product-card__price">$179.00</div>
-            <div class="product-card__type">Ring</div>
-            <div class="product-card__stars">
-              <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
-              <span class="rating-text">(5.0)</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Bracelets & Necklaces -->
-    <section class="section section--products" id="bracelets" style="padding-top: 0;">
-      <div class="product-grid reveal">
-        <div class="product-card">
-          <div class="product-card__image">
-            <img src="images/cuban-link-bracelet.png" alt="Cuban Link Bracelet">
-          </div>
-          <div class="product-card__info">
-            <div class="product-card__title">Cuban Link Bracelet (Silver)</div>
-            <div class="product-card__price">$299.00</div>
-            <div class="product-card__type">Bracelet</div>
-            <div class="product-card__stars">
-              <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
-              <span class="rating-text">(5.0)</span>
-            </div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-card__image">
-            <img src="images/unearth-cuff.webp" alt="Unearth Cuff">
-          </div>
-          <div class="product-card__info">
-            <div class="product-card__title">Unearth Cuff (Silver)</div>
-            <div class="product-card__price">$299.00</div>
-            <div class="product-card__type">Bracelet</div>
-            <div class="product-card__stars">
-              <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
-              <span class="rating-text">(5.0)</span>
-            </div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-card__image">
-            <img src="images/sun-worshipper-pendant.png" alt="Sun Worshipper Pendant">
-          </div>
-          <div class="product-card__info">
-            <div class="product-card__title">Sun Worshipper Pendant (Silver)</div>
-            <div class="product-card__price">$149.00</div>
-            <div class="product-card__type">Necklace</div>
-            <div class="product-card__stars">
-              <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
-              <span class="rating-text">(5.0)</span>
-            </div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-card__image">
-            <img src="images/paradox-pearls.png" alt="Paradox Pearls">
-            <span class="product-card__badge product-card__badge--accent">New</span>
-          </div>
-          <div class="product-card__info">
-            <div class="product-card__title">Paradox Pearls (Silver)</div>
-            <div class="product-card__price">$179.00</div>
-            <div class="product-card__type">Necklace</div>
-            <div class="product-card__stars">
-              <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
-              <span class="rating-text">(5.0)</span>
-            </div>
-          </div>
+        <!-- Animated grid border lights -->
+        <div class="grid-glow" aria-hidden="true">
+          <div class="glow-h" style="top:0"></div>
+          <div class="glow-h" style="top:50%"></div>
+          <div class="glow-h" style="bottom:0"></div>
+          <div class="glow-v" style="left:0"></div>
+          <div class="glow-v" style="left:25%"></div>
+          <div class="glow-v" style="left:50%"></div>
+          <div class="glow-v" style="left:75%"></div>
+          <div class="glow-v" style="right:0"></div>
         </div>
       </div>
     </section>
