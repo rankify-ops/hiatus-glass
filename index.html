@@ -39,19 +39,30 @@
       line-height: 1.6;
     }
 
-    /* Fixed background */
+    /* Background — scrolls slowly to reveal more of the church */
     .bg-layer {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       z-index: 0;
-      background: url('https://images.unsplash.com/photo-1619508422331-606e38f1f902?q=80&w=1920&auto=format&fit=crop') center / cover no-repeat;
+      overflow: hidden;
+    }
+    .bg-layer img {
+      width: 100%;
+      height: auto;
+      min-height: 100vh;
+      display: block;
       opacity: 0.7;
+      will-change: transform;
     }
     .bg-layer::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.1) 50%, rgba(10,10,10,0.4) 100%);
+      background: linear-gradient(180deg, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.05) 40%, rgba(10,10,10,0.3) 100%);
+      pointer-events: none;
     }
 
     /* Content layer */
@@ -155,59 +166,52 @@
     .hero {
       height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       position: relative;
-      overflow: hidden;
+      gap: 24px;
     }
 
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-    }
-
-    .hero-bg img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.6);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 700px;
-      padding: 48px;
-      border-radius: var(--radius-lg);
-    }
-
-    .hero-tagline {
-      font-size: 0.75rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
-      font-weight: 500;
-    }
-
-    .hero-title {
+    .hero-logo {
       font-family: 'Playfair Display', serif;
-      font-size: 4rem;
-      font-weight: 600;
+      font-size: 8rem;
+      font-weight: 700;
       color: var(--text-bright);
-      line-height: 1.1;
-      margin-bottom: 20px;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      line-height: 1;
+      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      letter-spacing: 0.05em;
     }
 
-    .hero-sub {
-      font-size: 1.1rem;
+    .hero-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
       color: var(--text-dim);
-      margin-bottom: 36px;
-      font-weight: 300;
-      line-height: 1.7;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-store-btn {
+      margin-top: 16px;
+      padding: 16px 48px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-bright);
+      transition: all 0.4s ease;
+      text-decoration: none;
+    }
+
+    .hero-store-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--glass-border-hover);
+      color: var(--accent);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
     }
 
     .btn {
@@ -594,8 +598,10 @@
 </head>
 <body>
 
-  <!-- Fixed background -->
-  <div class="bg-layer"></div>
+  <!-- Background image (tall church photo, parallax scrolls through it) -->
+  <div class="bg-layer">
+    <img src="https://images.unsplash.com/photo-1619508422331-606e38f1f902?q=80&w=1920&auto=format&fit=crop" alt="">
+  </div>
 
   <!-- Content -->
   <div class="content">
@@ -616,17 +622,11 @@
       </div>
     </nav>
 
-    <!-- Hero -->
+    <!-- Hero — logo + heading + glass button -->
     <section class="hero">
-      <div class="hero-content glass-heavy" style="border-radius: 24px;">
-        <div class="hero-tagline">Premium Sterling Silver</div>
-        <h1 class="hero-title">Refined Silver.<br>Like a Man Being Refined.</h1>
-        <p class="hero-sub">Handcrafted sterling silver jewellery built to last a lifetime. Waterproof. Timeless. Australian-made quality.</p>
-        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-          <a href="#products" class="btn btn-primary">Shop Collection</a>
-          <a href="#story" class="btn btn-outline">Our Story</a>
-        </div>
-      </div>
+      <div class="hero-logo">H</div>
+      <h1 class="hero-heading">Men's Jewellery</h1>
+      <a href="https://hiatuscollection.com.au" class="hero-store-btn glass">Online Store</a>
     </section>
 
     <!-- Best Sellers -->
@@ -849,6 +849,17 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Parallax — translate the bg image upward as you scroll to reveal more church
+    const bgImg = document.querySelector('.bg-layer img');
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const maxScroll = document.body.scrollHeight - window.innerHeight;
+      const imgHeight = bgImg.naturalHeight * (window.innerWidth / bgImg.naturalWidth);
+      const travel = imgHeight - window.innerHeight;
+      const progress = Math.min(scrollY / maxScroll, 1);
+      bgImg.style.transform = `translateY(${-travel * progress}px)`;
+    }, { passive: true });
   </script>
 </body>
 </html>
