@@ -204,11 +204,11 @@
 
     /* Scroll hint */
     .scroll-hint {
-      margin-top: 40px;
+      margin-top: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       opacity: 0.7;
       transition: opacity 0.3s ease;
     }
@@ -221,15 +221,33 @@
       text-transform: uppercase;
       color: var(--text);
       text-decoration: none;
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .scroll-hint__text::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 1px;
+      background: var(--text-bright);
+      transition: all 0.4s ease;
+      transform: translateX(-50%);
     }
 
     .scroll-hint__text:hover {
-      color: var(--accent);
+      color: var(--text-bright);
+    }
+
+    .scroll-hint__text:hover::after {
+      width: 100%;
     }
 
     .scroll-hint__track {
       width: 1px;
-      height: 100px;
+      height: 30vh;
       background: rgba(255, 255, 255, 0.08);
       position: relative;
       overflow: hidden;
@@ -244,15 +262,15 @@
       position: absolute;
       left: -1px;
       top: -12px;
-      animation: scrollDot 2.2s ease-in-out infinite;
+      animation: scrollDot 3s ease-in-out infinite;
       box-shadow: 0 0 10px var(--accent), 0 0 20px rgba(52, 211, 153, 0.3);
     }
 
     @keyframes scrollDot {
       0% { top: -12px; opacity: 0; }
-      20% { opacity: 1; }
+      10% { opacity: 1; }
       80% { opacity: 1; }
-      100% { top: 100px; opacity: 0; }
+      100% { top: 30vh; opacity: 0; }
     }
 
     .hero-store-btn:hover {
