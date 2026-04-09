@@ -170,9 +170,9 @@
       align-items: center;
       text-align: center;
       position: relative;
-      gap: 20px;
-      justify-content: flex-start;
-      padding-top: calc(50vh - 160px);
+      gap: 16px;
+      justify-content: center;
+      padding-bottom: 22vh;
     }
 
     .hero-logo {
@@ -205,12 +205,11 @@
 
     /* Scroll hint */
     .scroll-hint {
-      position: absolute;
-      bottom: 0;
+      margin-top: 8px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       opacity: 0.7;
     }
 
@@ -240,8 +239,8 @@
     .scroll-hint__text:hover::after { width: 100%; }
 
     .scroll-hint__track {
-      width: 1px;
-      height: 18vh;
+      width: 3px;
+      height: 12vh;
       background: rgba(255, 255, 255, 0.06);
       position: relative;
       overflow: hidden;
@@ -250,23 +249,22 @@
 
     .scroll-hint__dot {
       width: 3px;
-      height: 16px;
+      height: 20px;
       background: rgba(255, 255, 255, 0.9);
       border-radius: 3px;
       position: absolute;
-      left: -1px;
-      top: -16px;
+      left: 0;
+      top: -20px;
       animation: scrollDot 6s ease-in-out infinite;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.5), 0 0 24px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(255,255,255,0.4), 0 0 20px rgba(255,255,255,0.15);
     }
 
-    /* Dot travels first 40%, invisible rest — synced to 6s grid cycle */
     @keyframes scrollDot {
-      0% { top: -16px; opacity: 0; }
+      0% { top: -20px; opacity: 0; }
       5% { opacity: 1; }
       30% { opacity: 1; }
-      40% { top: 18vh; opacity: 0; }
-      100% { top: 18vh; opacity: 0; }
+      40% { top: 12vh; opacity: 0; }
+      100% { top: 12vh; opacity: 0; }
     }
 
     .hero-store-btn:hover {
