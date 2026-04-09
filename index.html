@@ -255,7 +255,11 @@
 
     /* ===== SECTIONS ===== */
     .section {
-      padding: 80px 48px;
+      padding: 60px 48px;
+    }
+
+    .section--products {
+      padding: 40px 0 60px;
     }
 
     .section-header {
@@ -283,10 +287,13 @@
     /* ===== PRODUCT GRID ===== */
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-      max-width: 1400px;
-      margin: 0 auto;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      width: 100%;
+    }
+
+    .product-grid--3col {
+      grid-template-columns: repeat(3, 1fr);
     }
 
     .product-card {
@@ -294,14 +301,14 @@
       backdrop-filter: var(--blur);
       -webkit-backdrop-filter: var(--blur);
       border: 1px solid var(--glass-border);
-      border-radius: var(--radius-md);
       overflow: hidden;
       transition: all 0.4s ease;
       cursor: pointer;
+      border-radius: 0;
     }
 
     .product-card:hover {
-      transform: translateY(-8px);
+      z-index: 2;
       box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
       border-color: var(--glass-border-hover);
       background: var(--glass-bg-hover);
@@ -309,7 +316,7 @@
 
     .product-card__image {
       position: relative;
-      aspect-ratio: 1;
+      aspect-ratio: 3/4;
       overflow: hidden;
       background: rgba(255,255,255,0.03);
     }
@@ -578,7 +585,7 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
-      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .product-grid--3col { grid-template-columns: repeat(2, 1fr); }
       .featured-banner { grid-template-columns: 1fr; }
       .pillars-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -588,9 +595,10 @@
       .nav { padding: 0 20px; }
       .nav-links { display: none; }
       .section { padding: 48px 20px; }
-      .hero-title { font-size: 2.4rem; }
-      .hero-content { padding: 24px; }
-      .product-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .section--products { padding: 24px 0 48px; }
+      .hero-logo { font-size: 5rem; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .product-grid--3col { grid-template-columns: repeat(2, 1fr); }
       .newsletter-form { flex-direction: column; }
       .footer-grid { grid-template-columns: 1fr; gap: 24px; }
     }
@@ -630,8 +638,8 @@
     </section>
 
     <!-- Best Sellers -->
-    <section class="section" id="products">
-      <div class="section-header reveal">
+    <section class="section section--products" id="products">
+      <div class="section-header reveal" style="padding: 0 48px;">
         <div class="section-label">Handcrafted Sterling Silver</div>
         <h2 class="section-title">Best Sellers</h2>
       </div>
@@ -698,8 +706,8 @@
     </section>
 
     <!-- Featured: Bracelets & Necklaces -->
-    <section class="section" id="bracelets">
-      <div class="product-grid reveal" style="grid-template-columns: repeat(3, 1fr); max-width: 1100px;">
+    <section class="section section--products" id="bracelets">
+      <div class="product-grid product-grid--3col reveal">
         <div class="product-card">
           <div class="product-card__image">
             <img src="images/cuban-link-bracelet.png" alt="Cuban Link Bracelet">
