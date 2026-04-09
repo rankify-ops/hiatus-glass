@@ -202,6 +202,55 @@
       text-decoration: none;
     }
 
+    /* Scroll hint */
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+    }
+
+    .scroll-hint:hover { opacity: 0.8; }
+
+    .scroll-hint__text {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .scroll-hint__track {
+      width: 1px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.08);
+      position: relative;
+      overflow: hidden;
+      border-radius: 1px;
+    }
+
+    .scroll-hint__dot {
+      width: 3px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 3px;
+      position: absolute;
+      left: -1px;
+      top: -12px;
+      animation: scrollDot 2s ease-in-out infinite;
+      box-shadow: 0 0 8px var(--accent), 0 0 16px rgba(52, 211, 153, 0.3);
+    }
+
+    @keyframes scrollDot {
+      0% { top: -12px; opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { top: 48px; opacity: 0; }
+    }
+
     .hero-store-btn:hover {
       background: rgba(255, 255, 255, 0.12);
       border-color: var(--glass-border-hover);
@@ -630,6 +679,14 @@
       <img src="images/h-logo.png" alt="Hiatus" class="hero-logo">
       <h1 class="hero-heading">Men's Jewellery</h1>
       <a href="https://hiatuscollection.com.au" class="hero-store-btn glass">Online Store</a>
+
+      <!-- Scroll indicator -->
+      <div class="scroll-hint">
+        <span class="scroll-hint__text">Discover</span>
+        <div class="scroll-hint__track">
+          <div class="scroll-hint__dot"></div>
+        </div>
+      </div>
     </section>
 
     <!-- Best Sellers -->
@@ -851,6 +908,12 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Fade out scroll hint as user scrolls
+    const scrollHint = document.querySelector('.scroll-hint');
+    window.addEventListener('scroll', () => {
+      if (scrollHint) scrollHint.style.opacity = Math.max(0, 0.5 - window.scrollY / 300);
+    }, { passive: true });
 
     // Parallax — translate the bg image upward as you scroll to reveal more church
     const bgImg = document.querySelector('.bg-layer img');
