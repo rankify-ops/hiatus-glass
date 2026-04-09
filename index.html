@@ -168,10 +168,11 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       text-align: center;
       position: relative;
-      gap: 24px;
+      gap: 20px;
+      justify-content: flex-start;
+      padding-top: calc(50vh - 160px);
     }
 
     .hero-logo {
@@ -257,13 +258,13 @@
     .scroll-hint__dot {
       width: 3px;
       height: 12px;
-      background: var(--accent);
+      background: rgba(255, 255, 255, 0.8);
       border-radius: 3px;
       position: absolute;
       left: -1px;
       top: -12px;
       animation: scrollDot 3s ease-in-out infinite;
-      box-shadow: 0 0 10px var(--accent), 0 0 20px rgba(52, 211, 153, 0.3);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.3);
     }
 
     @keyframes scrollDot {
