@@ -164,7 +164,7 @@
 
     /* ===== HERO ===== */
     .hero {
-      height: 100vh;
+      height: 70vh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -172,7 +172,6 @@
       position: relative;
       gap: 16px;
       justify-content: center;
-      padding-bottom: 22vh;
     }
 
     .hero-logo {
@@ -320,7 +319,8 @@
     }
 
     .section--products {
-      padding: 0 0 20px;
+      padding: 0;
+      margin-top: -2px;
     }
 
     .section-header {
@@ -753,10 +753,13 @@
       .nav { padding: 0 20px; }
       .nav-links { display: none; }
       .section { padding: 48px 20px; }
-      .section--products { padding: 24px 0 48px; }
-      .hero-logo { font-size: 5rem; }
+      .section--products { padding: 0; }
+      .hero { height: 60vh; }
+      .hero-logo { width: 100px; height: 100px; }
+      .hero-heading { font-size: 1rem; }
+      .scroll-hint__track { height: 8vh; }
+      .scroll-hint__text { font-size: 0.7rem; }
       .product-grid { grid-template-columns: repeat(2, 1fr); }
-      .product-grid--3col { grid-template-columns: repeat(2, 1fr); }
       .newsletter-form { flex-direction: column; }
       .footer-grid { grid-template-columns: 1fr; gap: 24px; }
     }
