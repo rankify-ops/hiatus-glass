@@ -255,7 +255,7 @@
     }
 
     .section--products {
-      padding: 40px 0 60px;
+      padding: 0 0 20px;
     }
 
     .section-header {
@@ -293,21 +293,20 @@
     }
 
     .product-card {
-      background: var(--glass-bg);
-      backdrop-filter: var(--blur);
-      -webkit-backdrop-filter: var(--blur);
-      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       overflow: hidden;
       transition: all 0.4s ease;
       cursor: pointer;
       border-radius: 0;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.02);
     }
 
     .product-card:hover {
       z-index: 2;
-      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
-      border-color: var(--glass-border-hover);
-      background: var(--glass-bg-hover);
+      border-color: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
     }
 
     .product-card__image {
@@ -635,7 +634,7 @@
 
     <!-- Best Sellers -->
     <section class="section section--products" id="products">
-      <div class="section-header reveal" style="padding: 0 48px;">
+      <div class="section-header reveal" style="padding: 0 48px; margin-bottom: 24px;">
         <div class="section-label">Handcrafted Sterling Silver</div>
         <h2 class="section-title">Best Sellers</h2>
       </div>
