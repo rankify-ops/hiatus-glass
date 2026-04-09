@@ -945,12 +945,6 @@
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Fade out scroll hint as user scrolls
-    const scrollHint = document.querySelector('.scroll-hint');
-    window.addEventListener('scroll', () => {
-      if (scrollHint) scrollHint.style.opacity = Math.max(0, 0.5 - window.scrollY / 300);
-    }, { passive: true });
-
     // Parallax — translate the bg image upward as you scroll to reveal more church
     const bgImg = document.querySelector('.bg-layer img');
     window.addEventListener('scroll', () => {
